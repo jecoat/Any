@@ -1,0 +1,81 @@
+1 js对象中，键名称和值相同时，可以省略值的语法特性在什么版本的js中受到支持？ //未解决
+2 vue局部注册组件在后代组件中不可用；
+3 pascalCase 命名法 ：每个单词首字母大写，单词直接连接，多用于类名或构造函数；
+4 kebab-case 命名法 ：单词小写，用连字符 - 连接，多用于文件名，URL 或者 HTML/CSS 中的属性名；
+5 内联字符串模板 //未解决
+6 Vue 支持将模板中使用 kebab-case 的标签解析为使用 PascalCase 注册的组件。也就是说通过 pascalCase 注册的组件可以 同时通过它的 pascalCase 和 kebab-case 格式来引用;
+7 使用 vue 实例的 component() 方法可以全局注册 vue 组件, 格式为：appInstance.component( 'ComponentName", { ComponentInstance } ），如果使用单文件组件，ComponentInstance 可以替换成一个 已经导入到当前文件中的单文件组件名；
+8 .component() 方法可以被链式调用：.component( 'ComponentA', ComponentA )
+.component( 'ComponentB', ComponentB )
+.component( 'ComponentC', ComponentC )；
+9 全局注册的组件可以在注册其的应用的任意组件的模板中使用；
+10 所有的子组件可以使用全局注册组件；
+11 全局注册组件可以彼此嵌套使用；
+12 全局注册但是没有被使用的组件在生产打包无法自动移除；
+13 大型项目中全局组件模糊了项目依赖关系，不容易定位子组件的实现，可能会影响应用长期可维护性；
+14 局部注册组件需要在使用它的父组件中显示导入，并且只能在该父组件中使用。
+15 局部注册使得组件之间依赖关系更明确，对 tree-shaking 更友好；
+16 tree-shaking：项目在生产打包时移除未使用的文件的操作；
+17 使用<script setup>的单文件组件中，导入的组件无需注册可以直接在模板中使用；
+18 没有使用<script setup>的单文件组件，需要使用 components 选项显示注册组件：
+import ComponentA from './ComponentA.js'
+
+export default {
+  components: {
+    componentA
+  },
+  setup(){
+  //...
+  }
+}
+其中component对象中的键值对中的键名是注册的组件名称，键对应的值是组件对应的实现；
+19 vue 官方文档中 整个指南中都用PascalCase 格式作为组件名的注册格式；
+20 PascalCase 格式的标签名在 DOM 模板中是不可用的；
+==props==
+21 一个组件需要显示声明它接受的 props，目的是分辨 props 和透传attribute;
+22 使用 <script setup> 的单文件组件中，props 可以使用 defineProps() 宏声明：
+<script setup>
+const props = defineProps(['foo'])
+
+console.log(props.foo)
+</script>
+;
+23 在没有使用 <script setup> 的组件中， props 可以使用 props 选项声明：
+export default {
+  props: ['foo'],
+  setup(props) {
+    // setup() 接收 props 作为第一个参数
+    console.log(props.foo)
+    }
+  }
+24 #22 & #23中 分别传递给 defineProps() 的参数和提供给 props 选项的值是相同的，两种声明方式都是基于对 props 选项的使用;
+25 除了使用字符串数组来声明，也可以使用对象形式来声明Props:
+// 使用 <script setup>
+defineProps({
+  title: String,
+  likes: Number
+})
+
+// 非 <script setup>
+export default {
+  props: {
+    title: String,
+    likes: Number
+    }
+  }
+其中对于以对象形式声明的每个 prop，key是 prop 的名称，而值是 prop 预期使用的构造函数，例如如果要求一个 prop 的值是 number 类型，则可以使用 Number 构造函数作为其声明的值；
+26 对象形式的 props 一定程度上可以作为组件的文档；
+27 对象形式的 props 在组件使用过程中被传递了错误的类型， 会在浏览器控制台中抛出警告；
+28 如果你正在搭配 TypeScript 使用 <script setup>，也可以使用类型标注来声明 props：
+<script setup lang="ts">
+defineProps<{
+  title?: string
+  likes?: number
+}>()
+</script>
+29 title?: string 代表是一个可选 props title，类型是 string;
+30 
+
+
+
+
