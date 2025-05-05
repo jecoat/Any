@@ -1,3 +1,4 @@
+add one line
 1 js对象中，键名称和值相同时，可以省略值的语法特性在什么版本的js中受到支持？ //未解决
 2 vue局部注册组件在后代组件中不可用；
 3 pascalCase 命名法 ：每个单词首字母大写，单词直接连接，多用于类名或构造函数；
@@ -75,3 +76,8 @@ defineProps<{
 </script>
 29 title?: string 代表是一个可选 props title，类型是 string;
 30 
+
+
+
+
+new line 
